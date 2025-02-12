@@ -7,8 +7,9 @@ import {
   Button,
   FormControl,
   FormLabel,
-  VStack,
+  //VStack,
   SimpleGrid,
+  Flex,
   Image,
 } from "@chakra-ui/react";
 
@@ -32,52 +33,87 @@ function Booking() {
   const filteredBookings = bookings.filter(booking => booking.email === submittedEmail);
 
   return (
-    <div className="min-h-screen flex flex-col items-center bg-[#f2f6fc] p-8">
-    <h2 className="text-3xl font-bold text-[#212529] mb-6">Track Your Bookings</h2>
+    <Box minH={'100vh'} bg="#f2f6fc" py={8} px={6} textAlign="center" /*className="min-h-screen flex flex-col items-center bg-[#f2f6fc] p-8"*/>
+    <Text fontSize="3xl" fontWeight="bold" color="#212529" mb={6} /*className="text-3xl font-bold text-[#212529] mb-6"*/>Track Your Bookings</Text>
 
     {/* Form */}
-    <form onSubmit={handleSubmit} className="w-full max-w-md bg-white p-6 rounded-lg shadow-md">
-      <label className="block mb-4">
-        Enter Your Email:
-        <input 
-          type="email"
-          value={email}
-          onChange={(e) => setEmail(e.target.value)}
-          className="w-full border p-2 rounded mt-2"
-          required
-        />
-      </label>
-      <button type="submit" className="w-full bg-blue-600 text-white p-2 rounded hover:bg-blue-700 transition">
-        Check Bookings
-      </button>
-    </form>
+    <Box 
+        as='form'
+        onSubmit={handleSubmit}
+        maxW="md"
+        mx="auto"
+        bg="white"
+        p={6}
+        rounded="lg"
+        shadow="md" /*className="w-full max-w-md bg-white p-6 rounded-lg shadow-md"*/
+        >
+        <FormControl mb={4}>
+          <FormLabel>Enter Your Email:</FormLabel>
+          <Input
+            type="email"
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
+            placeholder="Enter your email"
+            required
+          />
+        </FormControl>
+        <Button type="submit" bg="#ff6e00" w="full">
+          Check Bookings
+        </Button>
+    </Box>
 
-    <div>
+    <Box>
           {/* Show bookings content only after email is submitted */}
           {filteredBookings.length === 0 ? (
-            <p className="text-gray-600">No bookings found for this email.</p>
+            <Text className="text-gray-600">No bookings found for this email.</Text>
           ) : (
-            <div className={`mt-8 w-full max-w-4xl ${
-        filteredBookings.length === 1 
-          ? "flex justify-center" // Center when only one booking exists
-          : "grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6"
-      }`}>
-              {filteredBookings.map((booking, index) => (
-                <div key={index} className="bg-white p-4 rounded-lg shadow-md">
-                  <img src={booking.image[1]} alt="Room" className="w-full h-40 object-cover rounded-md" />
-                  <h3 className="text-xl font-semibold mt-3">{booking.text}</h3>
-                  <p className="text-gray-600">Price: ${booking.price} / night</p>
-                  <p className="text-gray-600">Bed: {booking.number}</p>
-                  <p className="text-gray-600">Bath: {booking.bath}</p>
-                  <p className="text-gray-600">Booked by: {booking.email}</p>
-                  <p className="text-gray-600">First Name: {booking.firstname}</p>
-                  <p className="text-gray-600">Lawal Name: {booking.lastname}</p>
-                </div>
-              ))}
-            </div>
+            <Flex 
+            mt={8}
+            justify="center"
+            align="center"
+            maxW="4xl"
+            mx="auto"
+            flexWrap="wrap"  
+            >
+            <SimpleGrid
+             spacing={6}
+             columns={filteredBookings.length === 1 ? 1 : [1, 2, 3]}
+             justifyContent="center"
+             alignItems="center"
+          >
+            {filteredBookings.map((booking, index) => (
+              <Box
+                key={index}
+                bg="white"
+                p={4}
+                rounded="lg"
+                shadow="md"
+                textAlign="left"
+              >
+                <Image
+                  src={booking.image[1]}
+                  alt="Room"
+                  w="full"
+                  h="160px"
+                  objectFit="cover"
+                  rounded="md"
+                />
+                <Text fontSize="xl" fontWeight="semibold" mt={3}>
+                  {booking.text}
+                </Text>
+                <Text color="gray.600">Price: ${booking.price} / night</Text>
+                <Text color="gray.600">Bed: {booking.number}</Text>
+                <Text color="gray.600">Bath: {booking.bath}</Text>
+                <Text color="gray.600">Booked by: {booking.email}</Text>
+                <Text color="gray.600">First Name: {booking.firstname}</Text>
+                <Text color="gray.600">Last Name: {booking.lastname}</Text>
+              </Box>
+            ))}
+          </SimpleGrid>
+          </Flex>
           )}
-        </div>
-    </div>
+        </Box>
+    </Box>
   );
 }
 
