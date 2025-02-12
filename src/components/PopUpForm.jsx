@@ -1,6 +1,20 @@
 // eslint-disable-next-line no-unused-vars
 import React, { useState } from 'react';
 import PropTypes from 'prop-types';
+import {
+  Modal,
+  ModalOverlay,
+  ModalContent,
+  ModalHeader,
+  ModalBody,
+  ModalFooter,
+  Button,
+  FormControl,
+  FormLabel,
+  Input,
+  Text,
+  useDisclosure,
+} from "@chakra-ui/react";
 
 // eslint-disable-next-line react/prop-types
 function PopUpForm({ hotel, onClose }) {
@@ -23,53 +37,60 @@ function PopUpForm({ hotel, onClose }) {
   return (
     <div className="px-[2em] fixed inset-0 bg-opacity-30 backdrop-blur-md flex justify-center items-center">
       <div className="bg-white p-6 rounded-lg w-96 shadow-lg">
-        <h2 className="text-xl font-bold mb-4">Confirm Your Booking</h2>
-        <div>{hotel.text}</div>
+        <ModalHeader className="text-xl font-bold mb-4">Confirm Your Booking</ModalHeader>
+        <ModalBody>
+        <Text>{hotel.text}</Text>
 
-        <label className="block mt-3">Email:</label>
-        <input 
-          type="email" 
-          value={email} 
-          onChange={(e) => setEmail(e.target.value)} 
-          className="border w-full p-2 rounded-md"
-          placeholder="Enter your email"
-          required
-        />
 
-        <label className="block mt-3">First Name:</label>
-        <input 
-          type="text" 
-          value={firstname} 
-          onChange={(e) => setFirstName(e.target.value)} 
-          className="border w-full p-2 rounded-md"
-          placeholder="Enter your firstname"
-          required
-        />
+        <FormControl mb={3}>
+            <FormLabel>Email</FormLabel>
+            <Input
+              type="email"
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
+              placeholder="Enter your email"
+              required
+            />
+          </FormControl>
 
-        <label className="block mt-3">Last Name:</label>
-        <input 
-          type="text" 
-          value={lastname} 
-          onChange={(e) => setLastName(e.target.value)} 
-          className="border w-full p-2 rounded-md"
-          placeholder="Enter your lastname"
-          required
-        />
+          <FormControl mb={3}>
+            <FormLabel>First Name</FormLabel>
+            <Input
+              type="text"
+              value={firstname}
+              onChange={(e) => setFirstName(e.target.value)}
+              placeholder="Enter your first name"
+              required
+            />
+          </FormControl>
+          <FormControl mb={3}>
+            <FormLabel>Last Name</FormLabel>
+            <Input
+              type="text"
+              value={lastname}
+              onChange={(e) => setLastName(e.target.value)}
+              placeholder="Enter your last name"
+              required
+            />
+          </FormControl>
+        </ModalBody>
 
-        <div className="mt-4 flex justify-between">
-          <button 
+
+
+        <ModalFooter className="mt-4 flex justify-between">
+          <Button 
             onClick={onClose}
             className="bg-gray-400 text-white px-4 py-2 rounded hover:bg-gray-500"
           >
             Cancel
-          </button>
-          <button 
+          </Button>
+          <Button 
             onClick={handleConfirmBooking}
             className="bg-[#ff6e00] text-white px-4 py-2 rounded "
           >
             Confirm Booking
-          </button>
-        </div>
+          </Button>
+        </ModalFooter>
       </div>
     </div>
   );

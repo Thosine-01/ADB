@@ -1,5 +1,6 @@
 // eslint-disable-next-line no-unused-vars
 import React, {useState} from 'react'
+import { Box, Stack, Button, Flex, Grid, GridItem, Heading,  Image, Text,  } from "@chakra-ui/react";
 import { useLocation } from 'react-router-dom';
 import { LiaBedSolid } from "react-icons/lia";
 import { FaUser } from "react-icons/fa";
@@ -11,59 +12,43 @@ function RoomComponent() {
       const { state } = useLocation();
     const [showPopup, setShowPopup] = useState(false);
   return (
-    <div>
-              <div className="max-w-2xl mx-auto py-10 px-10">
+    <Box>
+      <Box maxWidth={'2xl'} mx={'auto'} py={10} px={5}>
       {/* Large Image */}
-      <div className="mb-2">
-        <img
+      <Stack className="mb-2">
+        <Image
           src={state.image[0]} // Replace with actual image URL
           alt="Main Room"
           className="w-full h-72 object-cover rounded-lg"
         />
-      </div>
+      </Stack>
 
       {/* Small Image Grid */}
-      <div className="grid grid-cols-4 gap-2">
-        <img
-          src={state.image[1]} // Replace with actual image URL
-          alt="Room Detail 1"
-          className="w-full h-20 object-cover rounded-lg"
-        />
-        <img
-          src={state.image[2]} // Replace with actual image URL
-          alt="Room Detail 2"
-          className="w-full h-20 object-cover rounded-lg"
-        />
-        <img
-          src={state.image[3]} // Replace with actual image URL
-          alt="Room Detail 3"
-          className="w-full h-20 object-cover rounded-lg"
-        />
-        <img
-          src={state.image[4]} // Replace with actual image URL
-          alt="Room Detail 4"
-          className="w-full h-20 object-cover rounded-lg"
-        />
-      
-    </div>
+      <Grid templateColumns={{ base: "repeat(2, 1fr)", md: "repeat(4, 1fr)" }} gap={2}>
+          {state.image.slice(1, 5).map((img, index) => (
+              <GridItem key={index}>
+                <Image src={img} alt={`Room Detail ${index + 1}`} w="full" h={'100px'} objectFit="cover" borderRadius="lg" />
+              </GridItem>
+          ))}
+      </Grid>
 
-        <div className='mt-6'>
-            <h1 className='text-3xl font-bold'>{state.text}</h1>
+        <Box mt={6} >
+        <Heading size="lg">{state.text}</Heading>
         
-          <div className='block md:flex justify-between items-center text-center mt-10'>
-            <div className='text-lg mb-6'><div className='text-3xl mb-2 flex justify-center '><FaUser /></div>Occupant: {state.guest}</div>
-            <div className='text-lg mb-6'><div className='text-3xl mb-2 flex justify-center '><FaBath /></div>Bathrooms: {state.bath}</div>
-            <div className='text-lg mb-6'><div className='text-3xl mb-2 flex justify-center'><LiaBedSolid /></div>Beds: {state.number}</div>
-            <h2 className='text-lg mb-4'><div className='text-3xl mb-2 flex justify-center'><RiMoneyDollarCircleLine /></div>{state.price} / night</h2>
-          </div>
+          <Flex direction={{ base: "column", md: "row" }} justify={"space-between"} align={"center"} textAlign={"center"} mt={10}>
+            <Text fontSize={'18px'} mb={6}><Stack fontSize={'30px'} mb={2} display={'flex'} justifyContent={'center'} alignItems={'center'}><FaUser /></Stack>Occupant: {state.guest}</Text>
+            <Text fontSize={'18px'} mb={6}><Stack fontSize={'30px'} mb={2} display={'flex'} justify={'center'} alignItems={'center'}><FaBath /></Stack>Bathrooms: {state.bath}</Text>
+            <Text fontSize={'18px'} mb={6}><Stack fontSize={'30px'} mb={2} display={'flex'} justifyContent={'center'} alignItems={'center'}><LiaBedSolid /></Stack>Beds: {state.number}</Text>
+            <Text fontSize={'18px'} mb={6}><Stack fontSize={'30px'} mb={2} display={'flex'} justifyContent={'center'} alignItems={'center'}><RiMoneyDollarCircleLine /></Stack>{state.price} / night</Text>
+          </Flex>
 
-        </div>
-        <button
-                className='py-3 bg-[#ff6e00] text-white w-full mt-6 rounded-lg'
+        </Box>
+        <Button
+            backgroundColor={'#ff6e00'} width={'full'} mt={6} rounded={'lg'}
                 onClick={() => setShowPopup(true)}
             >
                 Book Me
-        </button>
+        </Button>
 
         {showPopup && (
                 <PopUpForm
@@ -71,8 +56,8 @@ function RoomComponent() {
                     onClose={() => setShowPopup(false)}
                 />
         )}
-    </div>
-    </div>
+    </Box>
+    </Box>
   )
 }
 

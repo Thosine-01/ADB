@@ -89,3 +89,105 @@ function HotelDetailCard({
 }
 
 export default HotelDetailCard
+
+{/*
+    import React, { useState } from "react";
+import PropTypes from "prop-types";
+import {
+  Modal,
+  ModalOverlay,
+  ModalContent,
+  ModalHeader,
+  ModalBody,
+  ModalFooter,
+  Button,
+  FormControl,
+  FormLabel,
+  Input,
+  Text,
+  useDisclosure,
+} from "@chakra-ui/react";
+
+function PopUpForm({ hotel, onClose }) {
+  const [email, setEmail] = useState("");
+  const [firstname, setFirstName] = useState("");
+  const [lastname, setLastName] = useState("");
+
+  const handleConfirmBooking = () => {
+    const bookingData = { ...hotel, firstname, lastname, email };
+
+    let storedBookings = JSON.parse(localStorage.getItem("bookings")) || [];
+    storedBookings.push(bookingData);
+    localStorage.setItem("bookings", JSON.stringify(storedBookings));
+
+    onClose(); // Close the modal
+  };
+
+  return (
+    <Modal isOpen={true} onClose={onClose} isCentered>
+      <ModalOverlay />
+      <ModalContent>
+        <ModalHeader>Confirm Your Booking</ModalHeader>
+        <ModalBody>
+          <Text mb={4}>{hotel.text}</Text>
+
+          <FormControl mb={3}>
+            <FormLabel>Email</FormLabel>
+            <Input
+              type="email"
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
+              placeholder="Enter your email"
+              required
+            />
+          </FormControl>
+
+          <FormControl mb={3}>
+            <FormLabel>First Name</FormLabel>
+            <Input
+              type="text"
+              value={firstname}
+              onChange={(e) => setFirstName(e.target.value)}
+              placeholder="Enter your first name"
+              required
+            />
+          </FormControl>
+
+          <FormControl mb={3}>
+            <FormLabel>Last Name</FormLabel>
+            <Input
+              type="text"
+              value={lastname}
+              onChange={(e) => setLastName(e.target.value)}
+              placeholder="Enter your last name"
+              required
+            />
+          </FormControl>
+        </ModalBody>
+
+        <ModalFooter>
+          <Button colorScheme="gray" mr={3} onClick={onClose}>
+            Cancel
+          </Button>
+          <Button colorScheme="orange" onClick={handleConfirmBooking}>
+            Confirm Booking
+          </Button>
+        </ModalFooter>
+      </ModalContent>
+    </Modal>
+  );
+}
+
+PopUpForm.propTypes = {
+  hotel: PropTypes.shape({
+    text: PropTypes.string.isRequired,
+    price: PropTypes.number.isRequired,
+    number: PropTypes.number.isRequired,
+    bath: PropTypes.number.isRequired,
+  }).isRequired,
+  onClose: PropTypes.func.isRequired,
+};
+
+export default PopUpForm;
+
+*/}
