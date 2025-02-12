@@ -13,7 +13,6 @@ import {
   FormLabel,
   Input,
   Text,
-  useDisclosure,
 } from "@chakra-ui/react";
 
 // eslint-disable-next-line react/prop-types
@@ -35,9 +34,10 @@ function PopUpForm({ hotel, onClose }) {
   };
 
   return (
-    <div className="px-[2em] fixed inset-0 bg-opacity-30 backdrop-blur-md flex justify-center items-center">
-      <div className="bg-white p-6 rounded-lg w-96 shadow-lg">
-        <ModalHeader className="text-xl font-bold mb-4">Confirm Your Booking</ModalHeader>
+    <Modal isOpen={true} onClose={onClose} className="px-[2em] fixed inset-0 bg-opacity-30 backdrop-blur-md flex justify-center items-center">
+      <ModalOverlay />
+      <ModalContent  backgroundColor={'white'} p={6} rounded={'lg'} w={'24rem'}  className="shadow-lg">
+        <ModalHeader fontSize={'20px'} fontStyle={'bold'} mb={4}>Confirm Your Booking</ModalHeader>
         <ModalBody>
         <Text>{hotel.text}</Text>
 
@@ -77,22 +77,22 @@ function PopUpForm({ hotel, onClose }) {
 
 
 
-        <ModalFooter className="mt-4 flex justify-between">
+        <ModalFooter display={'flex'} justifyContent={'space-between'} mt={4}>
           <Button 
             onClick={onClose}
-            className="bg-gray-400 text-white px-4 py-2 rounded hover:bg-gray-500"
+            backgroundColor={"gray.400"} textColor={"white"} px={4} py={2} rounded={"md"} _hover={{bg: "gray.500"}}
           >
             Cancel
           </Button>
           <Button 
             onClick={handleConfirmBooking}
-            className="bg-[#ff6e00] text-white px-4 py-2 rounded "
+            backgroundColor={"#ff6e00"} textColor={"white"} px={4} py={2} rounded={"md"} _hover={{bg: "#ff6e00"}}
           >
             Confirm Booking
           </Button>
         </ModalFooter>
-      </div>
-    </div>
+      </ModalContent>
+    </Modal>
   );
 }
 PopUpForm.propTypes = {

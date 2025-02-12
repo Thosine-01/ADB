@@ -1,5 +1,16 @@
 // eslint-disable-next-line no-unused-vars
 import React, { useState, useEffect } from 'react';
+import {
+  Box,
+  Text,
+  Input,
+  Button,
+  FormControl,
+  FormLabel,
+  VStack,
+  SimpleGrid,
+  Image,
+} from "@chakra-ui/react";
 
 function Booking() {
     const [email, setEmail] = useState('');

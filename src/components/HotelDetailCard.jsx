@@ -91,103 +91,118 @@ function HotelDetailCard({
 export default HotelDetailCard
 
 {/*
-    import React, { useState } from "react";
-import PropTypes from "prop-types";
+    import React, { useState, useEffect } from "react";
 import {
-  Modal,
-  ModalOverlay,
-  ModalContent,
-  ModalHeader,
-  ModalBody,
-  ModalFooter,
+  Box,
+  Text,
+  Input,
   Button,
   FormControl,
   FormLabel,
-  Input,
-  Text,
-  useDisclosure,
+  VStack,
+  SimpleGrid,
+  Image,
 } from "@chakra-ui/react";
 
-function PopUpForm({ hotel, onClose }) {
+function Booking() {
   const [email, setEmail] = useState("");
-  const [firstname, setFirstName] = useState("");
-  const [lastname, setLastName] = useState("");
+  const [bookings, setBookings] = useState([]);
+  const [submittedEmail, setSubmittedEmail] = useState("");
 
-  const handleConfirmBooking = () => {
-    const bookingData = { ...hotel, firstname, lastname, email };
+  useEffect(() => {
+    const storedBookings = JSON.parse(localStorage.getItem("bookings")) || [];
+    setBookings(storedBookings);
+  }, []);
 
-    let storedBookings = JSON.parse(localStorage.getItem("bookings")) || [];
-    storedBookings.push(bookingData);
-    localStorage.setItem("bookings", JSON.stringify(storedBookings));
-
-    onClose(); // Close the modal
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    setSubmittedEmail(email);
   };
 
+  const filteredBookings = bookings.filter(
+    (booking) => booking.email === submittedEmail
+  );
+
   return (
-    <Modal isOpen={true} onClose={onClose} isCentered>
-      <ModalOverlay />
-      <ModalContent>
-        <ModalHeader>Confirm Your Booking</ModalHeader>
-        <ModalBody>
-          <Text mb={4}>{hotel.text}</Text>
+    <Box minH="100vh" bg="#f2f6fc" py={8} px={6} textAlign="center">
+      <Text fontSize="3xl" fontWeight="bold" color="#212529" mb={6}>
+        Track Your Bookings
+      </Text>
 
-          <FormControl mb={3}>
-            <FormLabel>Email</FormLabel>
-            <Input
-              type="email"
-              value={email}
-              onChange={(e) => setEmail(e.target.value)}
-              placeholder="Enter your email"
-              required
-            />
-          </FormControl>
+      
+      <Box
+        as="form"
+        onSubmit={handleSubmit}
+        maxW="md"
+        mx="auto"
+        bg="white"
+        p={6}
+        rounded="lg"
+        shadow="md"
+      >
+        <FormControl mb={4}>
+          <FormLabel>Enter Your Email:</FormLabel>
+          <Input
+            type="email"
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
+            placeholder="Enter your email"
+            required
+          />
+        </FormControl>
+        <Button type="submit" colorScheme="blue" w="full">
+          Check Bookings
+        </Button>
+      </Box>
 
-          <FormControl mb={3}>
-            <FormLabel>First Name</FormLabel>
-            <Input
-              type="text"
-              value={firstname}
-              onChange={(e) => setFirstName(e.target.value)}
-              placeholder="Enter your first name"
-              required
-            />
-          </FormControl>
-
-          <FormControl mb={3}>
-            <FormLabel>Last Name</FormLabel>
-            <Input
-              type="text"
-              value={lastname}
-              onChange={(e) => setLastName(e.target.value)}
-              placeholder="Enter your last name"
-              required
-            />
-          </FormControl>
-        </ModalBody>
-
-        <ModalFooter>
-          <Button colorScheme="gray" mr={3} onClick={onClose}>
-            Cancel
-          </Button>
-          <Button colorScheme="orange" onClick={handleConfirmBooking}>
-            Confirm Booking
-          </Button>
-        </ModalFooter>
-      </ModalContent>
-    </Modal>
+      
+      {filteredBookings.length === 0 ? (
+        <Text mt={6} color="gray.600">
+          No bookings found for this email.
+        </Text>
+      ) : (
+        <SimpleGrid
+          mt={8}
+          spacing={6}
+          maxW="4xl"
+          mx="auto"
+          columns={[1, 2, 3]}
+        >
+          {filteredBookings.map((booking, index) => (
+            <Box
+              key={index}
+              bg="white"
+              p={4}
+              rounded="lg"
+              shadow="md"
+              textAlign="left"
+            >
+              <Image
+                src={booking.image[1]}
+                alt="Room"
+                w="full"
+                h="160px"
+                objectFit="cover"
+                rounded="md"
+              />
+              <Text fontSize="xl" fontWeight="semibold" mt={3}>
+                {booking.text}
+              </Text>
+              <Text color="gray.600">Price: ${booking.price} / night</Text>
+              <Text color="gray.600">Bed: {booking.number}</Text>
+              <Text color="gray.600">Bath: {booking.bath}</Text>
+              <Text color="gray.600">Booked by: {booking.email}</Text>
+              <Text color="gray.600">First Name: {booking.firstname}</Text>
+              <Text color="gray.600">Last Name: {booking.lastname}</Text>
+            </Box>
+          ))}
+        </SimpleGrid>
+      )}
+    </Box>
   );
 }
 
-PopUpForm.propTypes = {
-  hotel: PropTypes.shape({
-    text: PropTypes.string.isRequired,
-    price: PropTypes.number.isRequired,
-    number: PropTypes.number.isRequired,
-    bath: PropTypes.number.isRequired,
-  }).isRequired,
-  onClose: PropTypes.func.isRequired,
-};
+export default Booking;
 
-export default PopUpForm;
 
 */}
