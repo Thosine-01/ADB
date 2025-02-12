@@ -1,0 +1,5 @@
+@import "tailwindcss";
+
+.navList li:hover {
+    color: #f6fe00;
+}
